@@ -42,6 +42,7 @@ def generate_roi_report(stratification_results: list):
             features = pd.DataFrame([{"age": age, "condition": condition}])
             features = pd.get_dummies(features, columns=['condition'])   
             features = features.reindex(columns=model_columns, fill_value=0)
+            features = features.fillna(0)
 
             # --- Predict proactive cost ---
             proactive_cost = float(model.predict(features)[0])
