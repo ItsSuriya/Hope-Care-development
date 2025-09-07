@@ -130,7 +130,7 @@ export default function CSVUploadComponent({ onAnalysis }) {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://35.154.63.119:8000/predict", {
+      const response = await fetch("/api/predict", {
         method: "POST",
         body: formData,
       });
