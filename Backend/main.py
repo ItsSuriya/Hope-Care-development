@@ -120,6 +120,6 @@ async def predict(file: UploadFile = File(...)):
     return {"status": "success", "predictions": all_predictions, "roiReport": roi_report}
 
 # --- Serve React Frontend ---
-frontend_path = "../CTS-Project/build"   # changed from dist → build
+frontend_path = "../CTS-Project/dist"   # changed from dist → build
 app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
 # Run with: uvicorn main:app --reload
