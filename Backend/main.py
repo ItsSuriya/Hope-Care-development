@@ -105,7 +105,8 @@ app.add_middleware(
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     try:
-        df = pd.read_csv(file.file)
+        contents = await file.read()  # Read file contents
+        df = pd.read_csv(StringIO(contents.decode("utf-8")))  # Convert to DataFrame
     except Exception as e:
         print("❌ Error reading CSV file:", str(e))
         return {"status": "error", "message": str(e)}
@@ -113,7 +114,6 @@ async def predict(file: UploadFile = File(...)):
     all_predictions = []
     for patient_data in df.to_dict(orient="records"):
         prediction = predict_patient_risk(patient_data)
-        #print(prediction)
         all_predictions.append(prediction)
 
     roi_report = generate_roi_report(all_predictions)
